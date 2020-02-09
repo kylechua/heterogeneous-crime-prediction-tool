@@ -14,6 +14,9 @@ Contains backend code for the various prediction algorithms used by the tool
 
 Contains various generated files related to the Django settings for the server functionality of the tool.
 
+## db.sqlite3
+Database for crime prediction information
+
 ## manage.py
 
-Generated file which imports Django's execute_from_command_line functionality, raising ImportError if that fails.
+Generated file which imports Django's `execute_from_command_line` functionality, raising `ImportError` if that fails.
