@@ -1,7 +1,10 @@
 Main Backend Code/ML Stuff
 ---
+This directory contains files for the back-end clustering and prediction algorithms, their associated helper functions, and file I/O.
 > djmaps/src/prediction/fwdfiles
+
 ___
+
 General Functions
 --
 > djmaps/src/prediction/fwdfiles/general_functions.py
@@ -20,7 +23,6 @@ General Functions
 - **plotTimeSeries** - plots predictions as a time series using matplotlib
 - **computeResourceAllocation** - ?? // todo
 
-___
 Cluster Functions
 --
 > djmaps/src/prediction/fwdfiles/cluster_functions.py
@@ -28,7 +30,6 @@ Cluster Functions
 This file contains functions related to computing clusters and organizing data for a given input. We likely will not need to modify this file, though the function **computeClustersAndOrganizeData** is called upon in the *views.py* file:
 > djmaps/src/crimePred/views.py
 
-___
 Forecast [Model]
 --
 The following files actually make the crime predictions (forecasts) and save their results. These main functions are called upon in *views.py*: **forecast_MM, forecast_ARIMA, forecast_LSTM**
@@ -41,3 +42,10 @@ The following files actually make the crime predictions (forecasts) and save the
 
 **Long Short-Term Memory (LSTM)**
 > djmaps/src/prediction/fwdfiles/forecast_LSTM.py
+
+Resource Allocation Functions
+--
+> djmaps/src/prediction/fwdfiles/resourceAllocation_functions.py
+
+This file relates to resource allocation (i.e. how many officers to place where) on a given date, and computes the effectiveness of the forecasts. It does not yet seem to be implemented anywhere in the front-end, though it is used in the following file:
+> djmaps/src/prediction/calculate_resource_allocation.py
