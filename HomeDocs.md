@@ -1,5 +1,7 @@
 # Developer Documentation
 
+This file lists the purpose of the major files and directories in the home directory of this project. 
+
 ## crime_pred_venv
 A Python virtual environment created for to run this project.
 
