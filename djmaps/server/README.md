@@ -12,5 +12,5 @@ There are currently 3 paths
 2. Path `'crimePred/'`: `src.crimePred.urls`
 3. Path `'admin/'`: `admin.site.urls`
 
-## heterogeneous-crime-prediction-tool/djmaps/server/wsgi.py
+## wsgi.py
 This file hosts the WSGI config for djmaps project. WSGI stands for Web Server Gateway Interface. It is a specification that describes how a web server communicates with web applications, and how web applications can be chained together to process one request.
