@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8' />
+	<title>New Report</title>
+	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+	<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+	<link rel="stylesheet" type="text/css" href="./static/index.css">
+	<link rel="stylesheet" type="text/css" href="./static/icons.min.css">
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+
+
+<body>
+	<h1 class='title column col-mx-auto'>New Report</h1>
+	<div class='container columns'>
+		<div class='column col-6'>
+			<h3>Selected Location</h3>
+			<div id='map1' style="width:100%; height:600px"><div style="
+  position: absolute;
+  top: 50%;font-size: 30px;
+  left: 50%;z-index: 10000;
+  transform: translate(-50%, -50%);
+">X</div></div>
+
+
+
+		</div>
+
+		<div class='column col-6'>
+			<form>
+				<h3>Type Date and Time</h3>
+				Time - format: HH:MM<br/>
+				<input type="text">
+
+				<br/>
+
+				Date - format: DD/MM/YY<br/>
+				<input type="text">
+
+				<br/>
+				<br/>
+
+				<h3>Select Incident Type</h3>
+
+				<div class="dropdown">
+					
+					<i class="icon icon-caret"></i>
+<input type="radio" id="Serivce" name="gender" value="Serivce">
+  <label for="Serivce">Service</label><br>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Buglary</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Assault</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Robbery</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Grand Theft Auto</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Property</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Incident</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Grand Thefts</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Petty Thefts</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Homocide</label>
+    <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Vandalism</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Warrant</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Vandalism</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Other Assaults</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Theft Grand Person</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Sex offense</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Fire</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Trespass</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Home Land Security</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Vehicle Code</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Nacotics</label>
+  <input type="radio" id="other" name="gender" value="other">
+  <label for="other">Arson</label>
+				
+
+					<ul class="menu" id="crimeType">
+					</ul>
+				</div>
+
+				<br/>
+				<br/>
+
+				<h3>Comments</h3>
+				<input type="text">
+
+				<br/>
+				<br/>
+
+				<input type="submit">
+			</form>
+		</div>
+	
+
+	</div>
+		
+</body>
+
+<script>
+	mapboxgl.accessToken =
+    'pk.eyJ1Ijoia2F0aGxlZW54dWUiLCJhIjoiY2pyOXU5Z3JlMGxiNzQ5cGgxZmo5MWhzeiJ9.xyOwT8LWfjpOlEvPF2Iy7Q';
+
+	var map = new mapboxgl.Map({
+	container: 'map1',
+	style: 'mapbox://styles/mapbox/streets-v11',
+	center: [-118.287,34.022],
+	zoom: 14
+});
+
+</script>
+
+</html>
