@@ -201,6 +201,11 @@ def predict(request):
     response.status_code = 200
     return response
 
+def append(request, name):
+    # Append new datas onto the JSON file.
+    print("Nae", name);
+    # f= open("guru99.txt","w+")
+
 
 def evaluate(request):
     maxDist = 1
