@@ -9,5 +9,6 @@ urlpatterns = [
     path('heterogeneous-cluster', views.heterogeneousCluster,
          name='heterogeneous-cluster'),
     path('predict', views.predict, name='predict'),
-    path('evaluate', views.evaluate, name='evaluate')
+    path('evaluate', views.evaluate, name='evaluate'),
+    path('append/<name:string>/', views.append, name='append')
 ]
