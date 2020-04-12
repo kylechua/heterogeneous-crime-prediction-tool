@@ -341,6 +341,14 @@ function removeExistingPredictionLayer(map) {
     }
 }
 
+function radioButtonHookUp(map)
+{
+    $('.color-radio').change(function()
+    {
+        partialLoad();
+    });
+}
+
 function changeFunctionsHookUp(map) {
     $('.change').change(function () {
         const opType = $(this)
@@ -779,20 +787,126 @@ function formatDataToMapbox() {
 
 function addAllCrimePoints(map) {
     //MAP LAYER: ALL CRIMES
-    map.addLayer({
-        id: 'crimes',
-        type: 'circle',
-        source: 'dataCrimes',
-        paint: {
-            'circle-radius': {
-                base: 3.25,
-                stops: [[12, 3.5], [22, 180]]
-            },
-            'circle-color': colorArr,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#ffffff'
-        }
-    });
+    var inputVal = document.querySelector('input[name="coloring-method"]:checked').value;
+    if(inputVal == "Day")
+    {
+        map.addLayer({
+            id: 'crimes',
+            type: 'circle',
+            source: 'dataCrimes',
+            paint: {
+                'circle-radius': {
+                    base: 3.25,
+                    stops: [[12, 3.5], [22, 180]]
+                },
+                'circle-color': [
+                    'match', ['get', 'weekday'],
+                    'Monday', '#00bfff',
+                    'Tuesday', '#0066ff',
+                    'Wednesday', '#1100ff',
+                    'Thursday', '#8400ff',
+                    'Friday', '#f017ff',
+                    'Saturday', '#ff00d0',
+                    'Sunday', '#ff007b',
+                    /* other */ '#999999'
+                ],
+                'circle-stroke-width': 1,
+                'circle-stroke-color': colorArr
+            }
+        });
+    }
+    if(inputVal == "Type")
+    {
+        map.addLayer({
+            id: 'crimes',
+            type: 'circle',
+            source: 'dataCrimes',
+            paint: {
+                'circle-radius': {
+                    base: 3.25,
+                    stops: [[12, 3.5], [22, 180]]
+                },
+                'circle-color': [
+                    'match', ['get', 'type'],
+                    'Disturbance/Disorderly Conduct', '#00bfff',
+                    'Auto/Traffic', '#0066ff',
+                    'Property/Vandalism', '#1100ff',
+                    'Theft/Burglary', '#8400ff',
+                    'Robbery', '#f017ff',
+                    'Sex Assault/Harassment/Hate', '#ff00d0',
+                    'Assault/Battery/Homicide', '#ff007b',
+                    'Arson', '#ff0000',
+                    'Kidnapping', '#a60000',
+                    /* other */ '#999999'
+                ],
+                'circle-stroke-width': 1,
+                'circle-stroke-color': colorArr
+            }
+        });
+    }
+    if(inputVal == "Time")
+    {
+        map.addLayer({
+            id: 'crimes',
+            type: 'circle',
+            source: 'dataCrimes',
+            paint: {
+                'circle-radius': {
+                    base: 3.25,
+                    stops: [[12, 3.5], [22, 180]]
+                },
+                'circle-color': [
+                    'match', ['get', 'hour'],
+                    ['00', '01', '02'], '#00bfff',
+                    ['03', '04', '05'], '#0066ff',
+                    ['06', '07', '08'], '#1100ff',
+                    ['09', '10', '11'], '#8400ff',
+                    ['12', '13', '14'], '#f017ff',
+                    ['15', '16', '17'], '#ff00d0',
+                    ['18', '19', '20'], '#ff007b',
+                    ['21', '22', '23'], '#ff0000',
+                    '#999999'
+                ],
+                'circle-stroke-width': 1,
+                'circle-stroke-color': colorArr
+            }
+        });
+    }
+}
+
+function addLegend(map) {
+    var inputVal = document.querySelector('input[name="coloring-method"]:checked').value;
+    var layers;
+    if(inputVal == "Time")
+    {
+        layers = ['00:00 - 2:59', '3:00 - 5:59', '6:00 - 8:59', '9:00 - 11:59', '12:00 - 14:59', '15:00 - 17:59', '18:00 - 20:59', '21:00 - 23:59'];
+    }
+    if(inputVal == "Day")
+    {
+        layers = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    }
+    if(inputVal == "Type")
+    {
+        layers = ['Disturbance/Disorderly Conduct', 'Auto/Traffic', 'Property/Vandalism', 'Theft/Burglary', 'Robbery', 'Sex Assault/Harassment/Hate',
+                'Assault/Battery/Homicde', 'Arson', 'Kidnapping', 'Other'];
+    }
+    var colors = ['#00bfff', '#0066ff', '#1100ff', '#8400ff', '#f017ff', '#ff00d0', '#ff007b', '#ff0000',
+                '#a60000', '#999999'];
+    legend.innerHTML = "";
+    for (i = 0; i < layers.length; i++) {
+        var layer = layers[i];
+        var color = colors[i];
+        var item = document.createElement('div');
+        var key = document.createElement('span');
+        key.className = 'legend-key';
+        key.style.backgroundColor = color;
+      
+        var value = document.createElement('span');
+        value.innerHTML = layer;
+        item.appendChild(key);
+        item.appendChild(value);
+        legend.appendChild(item);
+    }
 }
 
 function loadmap() {
@@ -810,19 +924,77 @@ function loadmap() {
 
     let DBSCANdistance = '0cluster';
     colorArr = colors(DBSCANdistance);
-    const map = new mapboxgl.Map({
+    let map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
         center: [-118.2851, 34.026],
         zoom: 14
     });
+    const daysDict = {
+        0: 'Sunday',
+        1: 'Monday',
+        2: 'Tuesday',
+        3: 'Wednesday',
+        4: 'Thursday',
+        5: 'Friday',
+        6: 'Saturday'
+    };
+
+    for (var i = 0; i < dataCrimes.length; i++) {
+        let curDate = new Date(dataCrimes[i]['Date']);
+        dataCrimes[i]['weekday'] = daysDict[curDate.getDay()];
+        let crimeString = dataCrimes[i]['Category'];
+        dataCrimes[i]['hour'] = dataCrimes[i]['Time'].substring(0, 2);
+        if(crimeString.includes("THEFT") || crimeString.includes("BURGLARY"))
+        {
+            dataCrimes[i]['type'] = 'Theft/Burglary';
+        }
+        else if(crimeString.includes("AUTO") || crimeString.includes("VEHICLE") || crimeString.includes("TRAFFIC"))
+        {
+            dataCrimes[i]['type'] = 'Auto/Traffic';
+        }
+        else if(crimeString.includes("ROBBERY"))
+        {
+            dataCrimes[i]['type'] = 'Robbery';
+        }
+        else if(crimeString.includes("ASSAULT") || crimeString.includes("BATTERY") || crimeString.includes("HOMICIDE"))
+        {
+            dataCrimes[i]['type'] = 'Assault/Battery/Homicide';
+        }
+        else if(crimeString.includes("ARSON"))
+        {
+            dataCrimes[i]['type'] = 'Arson';
+        }
+        else if(crimeString.includes("KIDNAPPING"))
+        {
+            dataCrimes[i]['type'] = 'Kidnapping';
+        }
+        else if(crimeString.includes("PROPERTY") || crimeString.includes("VANDALISM"))
+        {
+            dataCrimes[i]['type'] = 'Property/Vandalism';
+        }
+        else if(crimeString.includes("SEX") || crimeString.includes("HARASSMENT") || crimeString.includes("HATE"))
+        {
+            dataCrimes[i]['type'] = 'Sex Assault/Harassment/Hate';
+        }
+        else if(crimeString.includes("DISTURBANCE") || crimeString.includes("DISORDERLY"))
+        {
+            dataCrimes[i]['type'] = 'Disturbance/Disorderly Conduct';
+        }
+        else
+        {
+            dataCrimes[i]['type'] = 'Other';
+        }
+    }
     mapboxData = formatDataToMapbox();
     map.on('load', function () {
+        
         map.addSource('dataCrimes', {
             type: 'geojson',
             data: mapboxData
         });
         addAllCrimePoints(map);
+        addLegend(map);
         let popup = new mapboxgl.Popup({
             closeButton: false,
             closeOnClick: false
@@ -834,8 +1006,36 @@ function loadmap() {
     submitFunctionHookUp(map);
     clusterButtonHookUp(map);
     predictButtonHookUp(map);
+    radioButtonHookUp(map);
     evaluationConfigFileUploadHookUp();
     clearPlotsButtonHookUp();
+}
+
+function partialLoad()
+{
+    let map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/light-v9',
+        center: [-118.2851, 34.026],
+        zoom: 14
+    });
+
+    let mapboxData = formatDataToMapbox();
+    map.on('load', function () {
+        
+        map.addSource('dataCrimes', {
+            type: 'geojson',
+            data: mapboxData
+        });
+        addAllCrimePoints(map);
+        addLegend(map);
+        let popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+        mouseOnPointsEvent(popup, map);
+        map.setFilter('crimes', ['all']);
+    });
 }
 
 handleEvaluationConfigUpload = (evt) => {

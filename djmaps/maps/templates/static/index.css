@@ -7,6 +7,7 @@ body{
 
 #map {
 	height: 87%;
+	z-index: 7;
 }
 
 .dropdown{
@@ -21,6 +22,27 @@ body{
 	width: 90%;
 	line-height: 34px;
 }
+
+.map-overlay {
+	position: absolute;
+	top: 85;
+	left: 10;
+	background: rgba(255, 255, 255, 0.8);
+	margin-left: 20px;
+	margin-top: 68px;
+	font-family: Arial, sans-serif;
+	overflow: auto;
+	border-radius: 3px;
+	z-index: 10;
+}
+
+.legend-key {
+	display: inline-block;
+	border-radius: 20%;
+	width: 10px;
+	height: 10px;
+	margin-right: 5px;
+  }
 
 .load{
 	margin: 15px;

@@ -14,6 +14,7 @@
 </head>
 
 <body>
+	<div id="legend" class="map-overlay"></div>
 	<h1 class='title column col-mx-auto'>DPS Crime Map</h1>
 	<div class='container columns col-gapless'>
 		<div id='map' class='column col-6'></div>
@@ -67,6 +68,31 @@
 							<ul class="menu" id="timeOfDay">
 							</ul>
 						</div>
+					</div>
+				</div>
+			</div>
+			<div class='filter'>
+				<div>
+					<span class="label label-rounded label-primary">Color Data By:</span>
+				</div>
+				<div class='columns col-gapless'>
+					<div class="col-4">
+						<label class="form-radio">
+							<input type="radio" class="color-radio" name="coloring-method" value='Day' checked>
+							<i class="form-icon"></i> Day of the Week
+						</label>
+					</div>
+					<div class="col-4">
+						<label class="form-radio">
+							<input type="radio" class="color-radio" name="coloring-method" value="Type">
+							<i class="form-icon"></i> Type of Crime
+						</label>
+					</div>
+					<div class="col-4">
+						<label class="form-radio">
+							<input type="radio" class="color-radio" name="coloring-method" value="Time">
+							<i class="form-icon"></i> Time of Day
+						</label>
 					</div>
 				</div>
 			</div>
