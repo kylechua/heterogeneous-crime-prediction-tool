@@ -18,6 +18,9 @@ def index(request):
 	#see https://www.mapbox.com/account/ under the "Access tokens" section
 	return render(request, 'index.html')
 
+def newreport(request):
+	return render(request, 'newreport.html')
+
 def dbscan(request):
 	#Before prediction
 	K.clear_session()
