@@ -834,6 +834,7 @@ function loadmap() {
     submitFunctionHookUp(map);
     clusterButtonHookUp(map);
     predictButtonHookUp(map);
+    statsButtonHookUp(map); // function is in stats.js
     evaluationConfigFileUploadHookUp();
     clearPlotsButtonHookUp();
 }
