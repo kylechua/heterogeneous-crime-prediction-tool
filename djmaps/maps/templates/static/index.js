@@ -1007,6 +1007,7 @@ function loadmap() {
     clusterButtonHookUp(map);
     predictButtonHookUp(map);
     radioButtonHookUp(map);
+    statsButtonHookUp(map); // function is in stats.js
     evaluationConfigFileUploadHookUp();
     clearPlotsButtonHookUp();
 }

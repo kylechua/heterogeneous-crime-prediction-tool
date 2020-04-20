@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from inspect import getsourcefile
+from collections import Counter
 import os
 import pandas as pd
 import sys
@@ -33,6 +34,7 @@ from prediction.fwdfiles.forecast_ARIMA import forecast_ARIMA
 from prediction.fwdfiles.forecast_MM import forecast_MM
 from prediction.fwdfiles.general_functions import getBorderCordinates, compute_resource_allocation
 from prediction.fwdfiles.cluster_functions import computeClustersAndOrganizeData
+from prediction.fwdfiles.stats_functions import get_crime_stats
 
 # reset the sys.path
 sys.path.pop(0)
@@ -249,6 +251,17 @@ def evaluate(request):
     with open(image_path, "rb") as imageFile:
         image_data = base64.b64encode(imageFile.read())
     response = HttpResponse(pd.io.json.dumps(image_data))
+    response['Access-Control-Allow-Origin'] = '*'
+    response.status_code = 200
+    return response
+
+def stats(request):
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    features = body['features']
+    data = convertFromFeaturesToData(features)
+    stats = get_crime_stats(data)
+    response = HttpResponse(json.dumps(stats))
     response['Access-Control-Allow-Origin'] = '*'
     response.status_code = 200
     return response
