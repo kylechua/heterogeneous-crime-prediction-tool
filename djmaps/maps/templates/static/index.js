@@ -1035,6 +1035,8 @@ function partialLoad()
         });
         mouseOnPointsEvent(popup, map);
         map.setFilter('crimes', ['all']);
+        applyFilters(map);
+        changeFunctionsHookUp(map);
     });
 }
 
